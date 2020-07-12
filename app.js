@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 require("colors");
+require("./database");
 
 const app = express();
 app.use(express.json());
