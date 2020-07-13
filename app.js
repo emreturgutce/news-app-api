@@ -13,9 +13,14 @@ app.use(require("cors")());
 
 app.use("/", require("./routes"));
 app.use(
-  "/home",
+  "/me",
   passport.authenticate("jwt", { session: false }),
-  require("./routes/home")
+  require("./routes/me")
+);
+app.use(
+  "/favorites",
+  passport.authenticate("jwt", { session: false }),
+  require("./routes/favorites")
 );
 app.use(require("./middleware/notFound"));
 app.use(require("./middleware/errorHandler"));
