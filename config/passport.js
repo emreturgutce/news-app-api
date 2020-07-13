@@ -6,7 +6,7 @@ const passport = require("passport"),
   Favorites = require("../models/Favorites");
 
 const deletePasswordFromUser = (user) => {
-  const userObject = Object.assign({}, user);
+  const userObject = Object.assign({}, user.toObject());
   delete userObject.password;
   return userObject;
 };
@@ -51,6 +51,7 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const user = await User.findByCredentials(email, password);
+        await user.generateAuthToken();
         const userObject = deletePasswordFromUser(user);
         return done(null, userObject);
       } catch (err) {
