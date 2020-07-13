@@ -4,20 +4,16 @@ const mongoose = require("mongoose"),
   jwt = require("jsonwebtoken"),
   Favorites = require("./Favorites");
 
-const requiredString = {
+const trimRequiredUniqueString = {
   type: String,
   required: true,
-};
-
-const trimRequiredUniqueString = {
-  ...requiredString,
   unique: true,
   trim: true,
 };
 
 const userSchema = new mongoose.Schema(
   {
-    username: trimRequiredUniqueString,
+    username: { ...trimRequiredUniqueString, minlength: 6 },
     email: {
       ...trimRequiredUniqueString,
       validate() {
@@ -31,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     tokens: [
       {
-        token: requiredString,
+        token: String,
       },
     ],
     favoritesId: {
