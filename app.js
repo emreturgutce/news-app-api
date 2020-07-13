@@ -1,8 +1,8 @@
 const express = require("express");
 require("dotenv").config();
 require("colors");
-require("./database");
-const passport = require("./passport");
+require("./config/database");
+const passport = require("./config/passport");
 
 const app = express();
 app.use(express.json());
