@@ -1,5 +1,5 @@
 const router = require("express").Router(),
-  passport = require("../passport");
+  passport = require("../config/passport");
 
 router.post(
   "/signup",
