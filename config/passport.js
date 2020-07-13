@@ -2,8 +2,8 @@ const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
   JWTStrategy = require("passport-jwt").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt,
-  User = require("./models/User"),
-  Favorites = require("./models/Favorites");
+  User = require("../models/User"),
+  Favorites = require("../models/Favorites");
 
 const deletePasswordFromUser = (user) => {
   const userObject = Object.assign({}, user);
