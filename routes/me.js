@@ -101,9 +101,7 @@ router.delete("/avatar", async (req, res) => {
 router.get("/logout", async (req, res) => {
   const { _id } = req.user;
   try {
-    const user = await User.findById(_id);
-    user.tokens = undefined;
-    await user.save();
+    await User.updateOne({ _id }, { tokens: [] });
     res.status(200).json({ success: true, message: "Logged out" });
   } catch (err) {
     res.status(500).json({ success: false, message: "Could not logged out" });
