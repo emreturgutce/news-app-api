@@ -30,9 +30,11 @@ passport.use(
           password,
           favoritesId: favorites._id,
         });
-        await user.save;
+        user.save;
         await user.generateAuthToken();
-        done(null, user);
+        const userObject = deletePasswordFromUser(user);
+        userObject.tokens = user.tokens[user.tokens.length - 1];
+        done(null, userObject);
       } catch (err) {
         done(err);
       }
@@ -68,9 +70,9 @@ passport.use(
       secretOrKey: process.env.JWT_SECRET,
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
-    async (token, done) => {
+    async (id, done) => {
       try {
-        const user = await User.findOne({ id: token.sub });
+        const user = await User.findById(id);
         const userObject = deletePasswordFromUser(user);
         done(null, userObject);
       } catch (err) {
