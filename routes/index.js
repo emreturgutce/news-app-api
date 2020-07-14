@@ -7,7 +7,11 @@ router.post(
   (req, res) => {
     res
       .status(201)
-      .json({ success: true, message: "User created", data: [req.user] });
+      .json({
+        success: true,
+        message: "User created",
+        data: { user: req.user },
+      });
   }
 );
 
