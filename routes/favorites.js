@@ -2,6 +2,23 @@ const router = require("express").Router(),
   Favorites = require("../models/Favorites"),
   axios = require("axios");
 
+router.get("/", async (req, res) => {
+  const { favoritesId } = req.user;
+  try {
+    const favorites = await Favorites.findById(favoritesId);
+    res.status(200).json({
+      success: true,
+      message: "Favorites info fetched",
+      data: { favorites },
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Favorites could not fetched",
+    });
+  }
+});
+
 router.get("/currency", async (req, res) => {
   const { favoritesId } = req.user;
   try {
@@ -32,7 +49,7 @@ router.get("/news", async (req, res) => {
     const response = await axios.get(process.env.NEWS_API_URL);
     res.status(200).json({
       success: true,
-      message: "Latest currency news fetched",
+      message: "Latest news fetched",
       data: response.data,
     });
   } catch (err) {
