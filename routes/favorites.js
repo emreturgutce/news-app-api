@@ -46,7 +46,9 @@ router.get("/news", async (req, res) => {
     const favorites = await Favorites.findById(favoritesId);
     if (!favorites.news)
       throw new Error("Latest news is not activated could not fetch");
-    const response = await axios.get(process.env.NEWS_API_URL);
+    const response = await axios.get(
+      process.env.NEWS_API_URL + "&apiKey=" + process.env.NEWS_API_KEY
+    );
     res.status(200).json({
       success: true,
       message: "Latest news fetched",
@@ -55,9 +57,7 @@ router.get("/news", async (req, res) => {
   } catch (err) {
     if (err.message === "Latest news is not activated could not fetch")
       return res.status(400).json({ success: false, message: err.message });
-    res
-      .status(500)
-      .json({ success: false, message: "Could not fetch currency news" });
+    res.status(500).json({ success: false, message: "Could not fetch news" });
   }
 });
 
