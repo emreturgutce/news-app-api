@@ -5,11 +5,11 @@ require("./config/database");
 const passport = require("./config/passport");
 
 const app = express();
+app.use(require("cors")());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(require("morgan")("dev"));
 app.use(require("helmet")());
-app.use(require("cors")());
 
 app.use("/", require("./routes"));
 app.use(
